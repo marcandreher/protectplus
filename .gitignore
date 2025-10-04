@@ -1,0 +1,9 @@
+/storage/
+/detection/
+/logs/
+.vscode/
+
+.config/app.toml
+
+/target/
+*.class

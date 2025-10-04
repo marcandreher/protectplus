@@ -1,0 +1,8 @@
+
+[logger]
+level = "info"
+
+[api]
+runtime = "DEVELOPMENT" # "DEVELOPMENT" / "PRODUCTION" 
+domain = "https://ac.osunolimits.dev"
+port = 4567
