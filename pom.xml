@@ -170,6 +170,17 @@
                 <configuration>
                     <mainClass>io.osuprotectplus.App</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>run-app</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>io.osuprotectplus.App</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
