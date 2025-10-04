@@ -17,6 +17,7 @@ import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import io.osuprotectplus.handlers.AnalyzeHandler;
 import io.osuprotectplus.handlers.BeatmapHandler;
 import io.osuprotectplus.handlers.StatsHandler;
+import io.osuprotectplus.handlers.SystemHandler;
 import io.osuprotectplus.modules.HomeHandler;
 import io.osuprotectplus.modules.JavalinJsonMapper;
 import io.osuprotectplus.modules.OpenAPIConfig;
@@ -26,7 +27,7 @@ public class App
     private static Logger logger = (Logger) LoggerFactory.getLogger(App.class);
     public static String apiUrl = "";
     public static String runtime = "PRODUCTION";
-    public static String version = "1.0.0";
+    public static String version = "1.0.5";
 
     // Java multiline string
     public static String bigText = """
@@ -55,7 +56,7 @@ public class App
 
         RequestLogger logHandler = (ctx, ms) -> {
             logger.info("[" + ctx.method().toString().toUpperCase() + "] | <" + ctx.host() + ctx.path() + ">" +
-                    " | <" + ctx.status() + "> | <" + ms + "ms>");
+                    " | < " + ctx.status() + " > | < " + ms + "ms > < " + ctx.userAgent() + " >");
         };
         runtime = toml.getString("api.runtime", "PRODUCTION").toUpperCase();
        
@@ -81,6 +82,7 @@ public class App
         app.get("/", new HomeHandler());
         app.post("/api/v1/analyze", new AnalyzeHandler());
         app.get("/api/v1/stats", new StatsHandler());
+        app.get("/api/v1/system", new SystemHandler());
         app.get("/api/v1/beatmap", new BeatmapHandler());
 
         logger.info("ProtectPlus AntiCheat is running on " + apiUrl);

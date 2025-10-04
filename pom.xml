@@ -9,7 +9,7 @@
     <!-- Project Information -->
     <groupId>io.osuprotectplus</groupId>
     <artifactId>protectplus</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <name>ProtectPlus AntiCheat</name>
