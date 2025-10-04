@@ -104,6 +104,7 @@ public class ProtectPlus {
         // Estimate max possible score (very rough, real formula is more complex)
         double maxScore = baseScore * replay.getMaxCombo() * multiplier;
         // Allow some tolerance for calculation error
+        if(maxScore == 0) return false;
         logger.debug("Score check {} > {} in {} ms", replay.getTotalScore(), (int)maxScore, System.currentTimeMillis() - startTime);
         if (replay.getTotalScore() > maxScore * 1.05) {
             return true;
