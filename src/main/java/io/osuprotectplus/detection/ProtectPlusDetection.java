@@ -22,6 +22,7 @@ public class ProtectPlusDetection {
     public List<Flag> analyze() {
         long startTime = System.currentTimeMillis();
         ArrayList<Flag> flags = new ArrayList<>();
+        int gameMode = replay.getGameMode();
 
         if (ProtectPlus.isScoreSuspiciouslyHigh(replay)) {
             Flag flag = new Flag();
@@ -30,34 +31,44 @@ public class ProtectPlusDetection {
             flags.add(flag);
         }
 
-        if(ProtectPlus.isSpinbot(replay)) {
-            Flag flag = new Flag();
-            flag.setFlag(Flags.SPINBOT_DETECTED);
-            flag.setReason("Spinbot detected (Spins per minute > " + SPINBOT_THRESHOLD_SPM + ")");
-            flags.add(flag);
-        }
-
-        if(ProtectPlus.isFullAutoplay(replay)) {
-            Flag flag = new Flag();
-            flag.setFlag(Flags.AUTOPLAY);
-            flag.setReason("Full Autoplay detected (Many identical delays 'i')");
-            flags.add(flag);
-        }
-
-        if(ProtectPlus.isTimewarpOrSpeedhack(replay)) {
-            Flag flag = new Flag();
-            flag.setFlag(Flags.TIMEWARP_OR_SPEEDHACK);
-            flag.setReason("Timewarp or Speedhack detected (Unnatural time intervals between actions)");
-            flags.add(flag);
-        }
-
-        for (OsrReplay replay : FileStorage.loadReplaysForBeatmap(replay, replay.getBeatmapMD5())) {
-            double similarity = ProtectPlus.computeCursorSimilarity(this.replay, replay);
-            if (similarity > 0.8) {
+        if (gameMode == 0 || gameMode == 2) {
+            if (ProtectPlus.isSpinbot(replay)) {
                 Flag flag = new Flag();
-                flag.setFlag(Flags.REPLAY_STOLEN);
-                flag.setReason(String.format("Replay is very similar to another replay (%.2f%% similarity) (%s)", similarity * 100, replay.getReplayMD5()));
+                flag.setFlag(Flags.SPINBOT_DETECTED);
+                flag.setReason("Spinbot detected (Spins per minute > " + SPINBOT_THRESHOLD_SPM + ")");
                 flags.add(flag);
+            }
+        }
+
+        if (gameMode == 0)
+            if (ProtectPlus.isFullAutoplay(replay)) {
+                Flag flag = new Flag();
+                flag.setFlag(Flags.AUTOPLAY);
+                flag.setReason("Full Autoplay detected (Many identical delays 'i')");
+                flags.add(flag);
+            }
+
+        if (gameMode == 0)
+
+        {
+            if (ProtectPlus.isTimewarpOrSpeedhack(replay)) {
+                Flag flag = new Flag();
+                flag.setFlag(Flags.TIMEWARP_OR_SPEEDHACK);
+                flag.setReason("Timewarp or Speedhack detected (Unnatural time intervals between actions)");
+                flags.add(flag);
+            }
+        }
+
+        if (gameMode == 0 || gameMode == 2) {
+            for (OsrReplay replay : FileStorage.loadReplaysForBeatmap(replay, replay.getBeatmapMD5())) {
+                double similarity = ProtectPlus.computeCursorSimilarity(this.replay, replay);
+                if (similarity > 0.8) {
+                    Flag flag = new Flag();
+                    flag.setFlag(Flags.REPLAY_STOLEN);
+                    flag.setReason(String.format("Replay is very similar to another replay (%.2f%% similarity) (%s)",
+                            similarity * 100, replay.getReplayMD5()));
+                    flags.add(flag);
+                }
             }
         }
 
@@ -69,5 +80,4 @@ public class ProtectPlusDetection {
         return flags;
     }
 
-    
 }
