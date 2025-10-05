@@ -193,6 +193,15 @@
                             <mainClass>io.osuprotectplus.crawler.App</mainClass>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>persist</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>io.osuprotectplus.detection.App</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
