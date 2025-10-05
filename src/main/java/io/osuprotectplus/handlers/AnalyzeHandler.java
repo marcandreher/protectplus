@@ -12,7 +12,7 @@ import io.javalin.openapi.OpenApiContent;
 import io.javalin.openapi.OpenApiContentProperty;
 import io.javalin.openapi.OpenApiRequestBody;
 import io.javalin.openapi.OpenApiResponse;
-import io.osuprotectplus.detection.Flag;
+import io.osuprotectplus.detection.Detection;
 
 public class AnalyzeHandler implements Handler {
 
@@ -42,7 +42,7 @@ public class AnalyzeHandler implements Handler {
         responses = {
             @OpenApiResponse(
                 status = "200",
-                content = {@OpenApiContent(from = Flag[].class)},
+                content = {@OpenApiContent(from = Detection.class)},
                 description = "Successfully analyzed replay - returns list of detected flags/cheats"
             ),
             @OpenApiResponse(
@@ -83,9 +83,23 @@ public class AnalyzeHandler implements Handler {
             var replay = io.osuprotectplus.ProtectPlus.parse(tempFile);
             var detection = new io.osuprotectplus.detection.ProtectPlusDetection(replay);
             var flags = detection.analyze();
+            Detection detectionResult = new Detection();
+            detectionResult.setBeatmapHash(replay.getBeatmapMD5());
+            detectionResult.setReplayHash(replay.getReplayMD5());
+
+            detectionResult.setFlags(flags);
+            // Read file data/task_logs/{replayMD5}.log if exists and set as details
+            java.io.File logFile = new java.io.File("data/task_logs", replay.getReplayMD5() + ".log");
+            if (logFile.exists()) {
+                String logContent = java.nio.file.Files.readString(logFile.toPath());
+                detectionResult.setDetails(logContent);
+            } else {
+                detectionResult.setDetails("No detailed log available.");
+            }
+           
 
             // Return successful response
-            ctx.json(flags);
+            ctx.json(detectionResult);
         } catch (Exception e) {
             ctx.status(400).json(Map.of(
                 "error", "Failed to parse replay",

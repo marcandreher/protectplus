@@ -41,7 +41,7 @@ public class ProtectPlusDetection {
                     boolean result = module.run();
                     if (result) {
                         Flag flag = new Flag();
-                        flag.setFlag(module.getDetection());
+                        flag.setFlag(module.getDetection());;
                         flags.add(flag);
                     }
                 }
