@@ -1,4 +1,4 @@
-package io.osuprotectplus.modules;
+package io.osuprotectplus.handlers;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;

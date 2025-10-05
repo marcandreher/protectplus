@@ -1,4 +1,4 @@
-package io.osuprotectplus.modules;
+package io.osuprotectplus.utils;
 
 import java.util.function.Consumer;
 

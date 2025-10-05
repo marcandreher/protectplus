@@ -16,11 +16,11 @@ import io.javalin.openapi.plugin.redoc.ReDocPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import io.osuprotectplus.handlers.AnalyzeHandler;
 import io.osuprotectplus.handlers.BeatmapHandler;
+import io.osuprotectplus.handlers.HomeHandler;
 import io.osuprotectplus.handlers.StatsHandler;
 import io.osuprotectplus.handlers.SystemHandler;
-import io.osuprotectplus.modules.HomeHandler;
-import io.osuprotectplus.modules.JavalinJsonMapper;
-import io.osuprotectplus.modules.OpenAPIConfig;
+import io.osuprotectplus.utils.JavalinJsonMapper;
+import io.osuprotectplus.utils.OpenAPIConfig;
 
 public class App 
 {

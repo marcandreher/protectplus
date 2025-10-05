@@ -9,3 +9,4 @@
 *.class
 
 .config/since.json
+data/

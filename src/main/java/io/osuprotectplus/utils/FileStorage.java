@@ -1,4 +1,4 @@
-package io.osuprotectplus.modules;
+package io.osuprotectplus.utils;
 
 import java.io.File;
 import java.util.ArrayList;
