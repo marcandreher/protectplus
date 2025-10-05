@@ -34,6 +34,11 @@ public class ProtectPlusDetection {
         long startTime = System.currentTimeMillis();
         ArrayList<Flag> flags = new ArrayList<>();
 
+        File taskLogFile = new File("data/task_logs", replay.getReplayMD5() + ".log");
+        if (taskLogFile.exists()) {
+            taskLogFile.delete();
+        }
+
         for (Class<? extends AcModule> moduleClass : modules) {
             try {
                 AcModule module = moduleClass.getConstructor(OsrReplay.class).newInstance(replay);
@@ -50,7 +55,6 @@ public class ProtectPlusDetection {
             }
         }
         if (flags.isEmpty()) {
-            File taskLogFile = new File("data/task_logs", replay.getReplayMD5() + ".log");
             if (taskLogFile.exists()) {
                 taskLogFile.delete();
             }
