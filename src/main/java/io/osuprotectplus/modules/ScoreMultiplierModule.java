@@ -19,8 +19,8 @@ import io.osuprotectplus.replay.OsuUtils;
 public class ScoreMultiplierModule extends AcModule {
 
     // Configuration constants
-    private static final double SCORE_TOLERANCE = 1.05; // 5% tolerance for calculation errors
-    private static final int MIN_HITS_THRESHOLD = 10; // Minimum hits required for analysis
+    private static final double SCORE_TOLERANCE = 1.2; // 20% tolerance for calculation errors
+    private static final int MIN_HITS_THRESHOLD = 50; // Minimum hits required for analysis
 
     public ScoreMultiplierModule(OsrReplay replay) {
         super(replay);
