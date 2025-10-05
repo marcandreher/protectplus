@@ -17,6 +17,10 @@ public class ReplayStealModule extends AcModule {
         boolean foundStolen = false;
         int analyzed = 0;
         for (OsrReplay gotReplay : FileStorage.loadReplaysForBeatmap(replay, replay.getBeatmapMD5())) {
+            if(gotReplay.getReplayMD5().equals(replay.getReplayMD5())) {
+                continue; // Skip self
+            }
+
             double similarity = computeCursorSimilarity(this.replay, gotReplay);
             analyzed++;
             if (similarity > 0.8) { // 80% similarity threshold
