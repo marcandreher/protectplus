@@ -25,6 +25,11 @@ public class ScoreMultiplierModule extends AcModule {
     @Override
     public boolean run() {
          // Calculate expected score (approximate, osu!standard formula)
+        if(replay.getTotalScore() < 0) {
+            logger.warn("Replay {} has invalid total score: {}", replay.getReplayMD5(), replay.getTotalScore());
+            return true;
+        }
+
         long startTime = System.currentTimeMillis();
         int totalHits = replay.getCount300() + replay.getCount100() + replay.getCount50() + replay.getCountMiss();
         if (totalHits == 0) return false;

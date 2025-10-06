@@ -24,7 +24,7 @@ public class ReplayStealModule extends AcModule {
             double similarity = computeCursorSimilarity(this.replay, gotReplay);
             analyzed++;
             if (similarity > 0.8) { // 80% similarity threshold
-                logger.info("Replay stolen from replay {}: {:.2f}%", gotReplay.getBeatmapMD5(), similarity * 100);
+                logger.info("Replay stolen from replay {}: {}%", gotReplay.getBeatmapMD5(), similarity * 100);
                 foundStolen = true;
             }
         }
